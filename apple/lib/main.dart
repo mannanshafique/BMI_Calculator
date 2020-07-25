@@ -1,5 +1,5 @@
+import 'package:apple/Screens/splashscreen.dart';
 import 'package:flutter/material.dart';
-import 'Screens/input_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xFF0A0E21),
         scaffoldBackgroundColor: Color(0xFF0A0E21),
       ),
-      home: InputPage(),
+      home: SplashScreen(),
+      // home: InputPage(),
     );
   }
 }
