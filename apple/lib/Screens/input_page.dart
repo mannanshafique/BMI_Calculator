@@ -65,204 +65,208 @@ class _InputPageState extends State<InputPage> {
     return WillPopScope(
         onWillPop: _onWillPop,
         child: Scaffold(
-          appBar: AppBar(
-            title: Text('BMI CALCULATOR'),
-            centerTitle: true,
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            appBar: AppBar(
+              title: Text('BMI CALCULATOR'),
+              centerTitle: true,
+            ),
+            body: SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
-                  ReuseableCard(
-                    onPress: () {
-                      setState(() {
-                        selectedGender = Gender.male;
-                      });
-                    },
-                    colour: selectedGender == Gender.male
-                        ? kActiveCardColour
-                        : kInactiveCardColour,
-                    cardChild: Iconcontext(
-                      icon: FontAwesomeIcons.mars,
-                      label: 'MALE',
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ReuseableCard(
+                          onPress: () {
+                            setState(() {
+                              selectedGender = Gender.male;
+                            });
+                          },
+                          colour: selectedGender == Gender.male
+                              ? kActiveCardColour
+                              : kInactiveCardColour,
+                          cardChild: Iconcontext(
+                            icon: FontAwesomeIcons.mars,
+                            label: 'MALE',
+                          ),
+                        ),
+                        ReuseableCard(
+                          onPress: () {
+                            setState(() {
+                              selectedGender = Gender.female;
+                            });
+                          },
+                          colour: selectedGender == Gender.female
+                              ? kActiveCardColour
+                              : kInactiveCardColour,
+                          cardChild: Iconcontext(
+                            icon: FontAwesomeIcons.venus,
+                            label: 'FEMALE',
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  ReuseableCard(
-                    onPress: () {
-                      setState(() {
-                        selectedGender = Gender.female;
-                      });
-                    },
-                    colour: selectedGender == Gender.female
-                        ? kActiveCardColour
-                        : kInactiveCardColour,
-                    cardChild: Iconcontext(
-                      icon: FontAwesomeIcons.venus,
-                      label: 'FEMALE',
+                  Container(
+                    child: ReuseableCard(
+                      colour: kActiveCardColour,
+                      cardChild: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            'HEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text("Feet"),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40, right: 40),
+                            child: TextField(
+                              controller: feet,
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                  labelText: "Feet",
+                                  contentPadding:
+                                      EdgeInsets.only(left: 10, right: 10),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                            ),
+                          ),
+                          Text("Inch"),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 40, right: 40, bottom: 10),
+                            child: TextField(
+                              controller: inch,
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                  labelText: "Inch",
+                                  contentPadding:
+                                      EdgeInsets.only(left: 10, right: 10),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ],
-              ),
-              Expanded(
-                child: ReuseableCard(
-                  colour: kActiveCardColour,
-                  cardChild: Column(
+                  Row(
                     children: <Widget>[
-                      Text(
-                        'HEIGHT',
-                        style: kLabelTextStyle,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text("Feet"),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 40),
-                        child: TextField(
-                          controller: feet,
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              labelText: "Feet",
-                              contentPadding:
-                                  EdgeInsets.only(left: 10, right: 10),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))),
+                      Expanded(
+                        flex: 1,
+                        child: ReuseableCard(
+                          colour: kActiveCardColour,
+                          cardChild: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          'WEIGHT',
+                                          style: kLabelTextStyle,
+                                        ),
+                                        Text(
+                                          weight.toString(),
+                                          style: kNumberTextStyle,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      NumberPicker.integer(
+                                          initialValue: weight,
+                                          minValue: 18,
+                                          maxValue: 200,
+                                          onChanged: (newValue) => setState(
+                                              () => weight = newValue)),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Text("Inch"),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 40),
-                        child: TextField(
-                          controller: inch,
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              labelText: "Inch",
-                              contentPadding:
-                                  EdgeInsets.only(left: 10, right: 10),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))),
+                      Expanded(
+                        flex: 1,
+                        child: ReuseableCard(
+                          colour: kActiveCardColour,
+                          cardChild: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          'AGE',
+                                          style: kLabelTextStyle,
+                                        ),
+                                        Text(
+                                          age.toString(),
+                                          style: kNumberTextStyle,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      NumberPicker.integer(
+                                          initialValue: age,
+                                          minValue: 5,
+                                          maxValue: 100,
+                                          onChanged: (newValue) =>
+                                              setState(() => age = newValue)),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: ReuseableCard(
-                        colour: kActiveCardColour,
-                        cardChild: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        'WEIGHT',
-                                        style: kLabelTextStyle,
-                                      ),
-                                      Text(
-                                        weight.toString(),
-                                        style: kNumberTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    NumberPicker.integer(
-                                        initialValue: weight,
-                                        minValue: 18,
-                                        maxValue: 200,
-                                        onChanged: (newValue) =>
-                                            setState(() => weight = newValue)),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ReuseableCard(
-                        colour: kActiveCardColour,
-                        cardChild: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        'AGE',
-                                        style: kLabelTextStyle,
-                                      ),
-                                      Text(
-                                        age.toString(),
-                                        style: kNumberTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    NumberPicker.integer(
-                                        initialValue: age,
-                                        minValue: 5,
-                                        maxValue: 100,
-                                        onChanged: (newValue) =>
-                                            setState(() => age = newValue)),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              BottomButton(
-                buttonTitle: 'CALCULATE',
-                onTap: () {
-                  setState(() {
-                    wholeHeight = double.parse(feet.text) * 30.48 +
-                        double.parse(inch.text) * 2.54;
-                  });
-                  CalculatorBrain calc =
-                      CalculatorBrain(height: wholeHeight, weight: weight);
+                  BottomButton(
+                    buttonTitle: 'CALCULATE',
+                    onTap: () {
+                      setState(() {
+                        wholeHeight = double.parse(feet.text) * 30.48 +
+                            double.parse(inch.text) * 2.54;
+                      });
+                      CalculatorBrain calc =
+                          CalculatorBrain(height: wholeHeight, weight: weight);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResultsPage(
-                        bmiResult: calc.calculateBMI(),
-                        resultText: calc.getResult(),
-                        interpretation: calc.getInterpretation(),
-                      ),
-                    ),
-                  );
-                },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResultsPage(
+                            bmiResult: calc.calculateBMI(),
+                            resultText: calc.getResult(),
+                            interpretation: calc.getInterpretation(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )));
   }
 }
